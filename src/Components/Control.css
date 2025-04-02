@@ -96,3 +96,32 @@ h1 {
         max-width: 300px;
     }
 }
+.control {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.toggle-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 150px;
+    margin-top: 10px;
+}
+
+.toggle-button.on {
+    background-color: #28a745;
+    color: white;
+}
+
+.toggle-button.off {
+    background-color: #dc3545;
+    color: white;
+}
+
+.toggle-button:hover {
+    opacity: 0.8;
+}

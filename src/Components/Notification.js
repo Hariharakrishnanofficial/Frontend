@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Notification.css"
-
+import CONFIG from "./url";
+import { Api } from "@mui/icons-material";
 const EmailManagement = () => {
   const [emails, setEmails] = useState([]);
   const [email, setEmail] = useState("");
   const [popup, setPopup] = useState({ message: "", type: "" });
 
-  const url = "https://backend-software-6mz4.onrender.com";
+  const url = CONFIG.API_URL;
+  
+  // console.log("URL:");
+  // console.log(CONFIG.API_URL );
+  // console.log(CONFIG.localHost);
 
   useEffect(() => {
     fetchEmails();

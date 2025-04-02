@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Schedule.css"; // Import CSS for styling
+import "./Schedule.css";  
+import CONFIG from "./url";
 
 const TaskScheduler = () => {
   const [scheduleType, setScheduleType] = useState("");
@@ -14,7 +15,8 @@ const TaskScheduler = () => {
   });
   const [responseMessage, setResponseMessage] = useState("");
 
-  const url = "https://backend-software-6mz4.onrender.com";
+  // const url = "https://backend-software-6mz4.onrender.com";
+  const url = CONFIG.localHost;
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

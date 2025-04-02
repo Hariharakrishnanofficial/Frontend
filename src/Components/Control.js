@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Control.css";
+import CONFIG from "./url";
 
-const API_URL = "https://backend-software-6mz4.onrender.com";
+const API_URL = CONFIG.API_URL;
 
 const SensorDashboard = () => {
     const [sensorData, setSensorData] = useState({
-        temperature: "--",
-        humidity: "--",
-        rain: "--",
-        moistureSensor1: "--",
-        moistureSensor2: "--",
-        lightIntensity: "--",
+        Temperature: "--",
+        Humidity: "--",
+        RainSensor: "--",
+        MoistureSensor1: "--",
+        MoistureSensor2: "--",
+        LightIntensity: "--",
     });
 
     const [pumpStatus, setPumpStatus] = useState("--");
@@ -22,12 +23,12 @@ const SensorDashboard = () => {
             if (data.length > 0) {
                 const latestData = data[0];
                 setSensorData({
-                    temperature: latestData.temperature || "--",
-                    humidity: latestData.humidity || "--",
-                    rain: latestData.RainSensor === "YES" ? "Yes" : "No",
-                    moistureSensor1: latestData.moistureSensor1 || "--",
-                    moistureSensor2: latestData.moistureSensor2 || "--",
-                    lightIntensity: latestData.Light || "--",
+                    Temperature: latestData.temperature || "--",
+                    Humidity: latestData.humidity || "--",
+                    RainSensor: latestData.RainSensor === "YES" ? "Yes" : "No",
+                    MoistureSensor1: latestData.moistureSensor1 || "--",
+                    MoistureSensor2: latestData.moistureSensor2 || "--",
+                    LightIntensity: latestData.Light || "--",
                 });
             }
         } catch (error) {
@@ -45,14 +46,15 @@ const SensorDashboard = () => {
         }
     };
 
-    const setPumpStatusAPI = async (status) => {
+    const togglePumpStatus = async () => {
+        const newStatus = pumpStatus === "ON" ? "OFF" : "ON";
         try {
             await fetch(`${API_URL}/set-pump`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ pump: status }),
+                body: JSON.stringify({ pump: newStatus }),
             });
-            fetchPumpStatus();
+            setPumpStatus(newStatus);
         } catch (error) {
             console.error("Error setting pump status:", error);
         }
@@ -82,9 +84,15 @@ const SensorDashboard = () => {
             {/* Water Pump Control */}
             <div className="control">
                 <h2>Water Pump Control</h2>
-                <p>{pumpStatus}</p>
-                <button className="on" onClick={() => setPumpStatusAPI("ON")}>Turn On</button>
-                <button className="off" onClick={() => setPumpStatusAPI("OFF")}>Turn Off</button>
+                <p>Status: <strong>{pumpStatus}</strong></p>
+                
+                {/* Toggle Button */}
+                <button 
+                    className={`toggle-button ${pumpStatus === "ON" ? "on" : "off"}`} 
+                    onClick={togglePumpStatus}
+                >
+                    {pumpStatus === "ON" ? "Turn Off" : "Turn On"}
+                </button>
             </div>
         </div>
     );

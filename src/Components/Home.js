@@ -1,8 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
-
+import CONFIG from "./url";
 const Home = () => {
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 800,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    };
+
     return (
         <div className="home-container">
             {/* Hero Section */}
@@ -10,10 +23,25 @@ const Home = () => {
                 <h1>Smart Irrigation System for Precision Farming</h1>
                 <p>
                     Water scarcity is a major challenge in agriculture, leading to inefficient water use and reduced crop yields. 
-                    Our Smart Irrigation System leverages **IoT and sensor technology** to optimize irrigation, ensuring efficient water usage and enhanced crop yield.
+                    Our Smart Irrigation System leverages IoT and sensor technology to optimize irrigation, ensuring efficient water usage and enhanced crop yield.
                 </p>
                 <Link to="/dashboard" className="cta-button">View Live Data</Link>
             </header>
+
+            {/* Image Slider */}
+            <div className="slider-container">
+                <Slider {...sliderSettings}>
+                    <div>
+                        <img src="/images/irrigation1.jpg" alt="Smart Irrigation System" />
+                    </div>
+                    <div>
+                        <img src="/images/irrigation2.jpg" alt="Sensor-Based Farming" />
+                    </div>
+                    <div>
+                        <img src="/images/irrigation3.jpg" alt="Water Optimization" />
+                    </div>
+                </Slider>
+            </div>
 
             {/* How It Works Section */}
             <section className="how-it-works">
@@ -31,7 +59,7 @@ const Home = () => {
 
                     <div className="step">
                         <h3>🚀 Smart Control</h3>
-                        <p>Farmers receive **real-time alerts** and can control the water pump via a mobile app.</p>
+                        <p>Farmers receive real-time alerts and can control the water pump via a mobile app.</p>
                     </div>
                 </div>
             </section>
