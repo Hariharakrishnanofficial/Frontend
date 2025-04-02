@@ -8,7 +8,7 @@ import EmailManagement from "./Components/Notification";
 import TaskScheduler from "./Components/Schedule";
 import SensorDashboard from "./Components/Control"
 import Navbar from "./Components/Navbar";
-import CONFIG from "./Components/url";
+// import CONFIG from "./Components/url";
 
 function App() 
 {

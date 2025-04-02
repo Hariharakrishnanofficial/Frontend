@@ -12,8 +12,9 @@
 /* Logo Styling */
 .logo {
     font-size: 1.5em;
-    color: white;
+    color: black;
     font-weight: bold;
+    size: 10cap;
 }
 
 /* Navigation Links (Desktop) */

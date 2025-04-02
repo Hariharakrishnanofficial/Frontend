@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Notification.css"
 import CONFIG from "./url";
-import { Api } from "@mui/icons-material";
+// import { Api } from "@mui/icons-material";
+
 const EmailManagement = () => {
   const [emails, setEmails] = useState([]);
   const [email, setEmail] = useState("");
