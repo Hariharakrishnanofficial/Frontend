@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
+import CONFIG from "./url";
 import "./Dashboard.css"; // Import CSS for styling
 import {
   Chart as ChartJS,
@@ -12,13 +13,13 @@ import {
   Legend,
 } from "chart.js";
 
-// Register chart components
+// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const SensorDashboard = () => {
   const [sensorData, setSensorData] = useState({ labels: [], datasets: [] });
 
-  const url = "https://backend-software-6mz4.onrender.com/api/sensor-data";
+  const url = CONFIG.API_URL+"/api/sensor-data";
 
   useEffect(() => {
     const fetchSensorData = async () => {
@@ -27,16 +28,16 @@ const SensorDashboard = () => {
         const data = await response.json();
         if (data.length > 0) {
           const timestamps = data.map((entry) => new Date(entry.timestamp).toLocaleTimeString());
-          
+
           setSensorData({
             labels: timestamps,
             datasets: [
-              { label: "Temperature (°C)", data: data.map((entry) => entry.temperature), borderColor: "red" },
-              { label: "Humidity (%)", data: data.map((entry) => entry.humidity), borderColor: "blue" },
-              { label: "Moisture 1", data: data.map((entry) => entry.moisture_sensor1), borderColor: "green" },
-              { label: "Moisture 2", data: data.map((entry) => entry.moisture_sensor2), borderColor: "purple" },
-              { label: "Rain Sensor", data: data.map((entry) => (entry.RainSensor === "YES" ? 1 : 0)), borderColor: "orange" },
-              { label: "Light Intensity", data: data.map((entry) => entry.LightIntensity), borderColor: "yellow" }, // Light Intensity Chart
+              { label: "🌡 Temperature (°C)", data: data.map((entry) => entry.temperature), borderColor: "#ff5733" },
+              { label: "💧 Humidity (%)", data: data.map((entry) => entry.humidity), borderColor: "#3498db" },
+              { label: "🌱 Moisture Sensor 1", data: data.map((entry) => entry.moisture_sensor1), borderColor: "#2ecc71" },
+              { label: "🌿 Moisture Sensor 2", data: data.map((entry) => entry.moisture_sensor2), borderColor: "#9b59b6" },
+              { label: "🌧 Rain Sensor", data: data.map((entry) => (entry.RainSensor === "YES" ? 1 : 0)), borderColor: "#f39c12" },
+              { label: "☀️ Light Intensity", data: data.map((entry) => entry.LightIntensity), borderColor: "#f1c40f" },
             ],
           });
         }
@@ -52,12 +53,16 @@ const SensorDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">Sensor Data Monitoring</h1>
+      {/* Hero Section */}
+      <header className="dashboard-hero">
+        <h1>📊 Smart Agriculture Dashboard</h1>
+        <p>Monitor real-time environmental conditions and optimize irrigation efficiency.</p>
+      </header>
 
-      {/* Dashboard Grid */}
-      <div className="chart-container">
+      {/* Sensor Data Charts */}
+      <div className="chart-grid">
         {sensorData.datasets.map((dataset, index) => (
-          <div key={index} className="chart-box">
+          <div key={index} className="chart-card">
             <h2 className="chart-title">{dataset.label}</h2>
             <div className="chart-wrapper">
               <Line
@@ -77,6 +82,11 @@ const SensorDashboard = () => {
           </div>
         ))}
       </div>
+
+      {/* Footer */}
+      <footer className="dashboard-footer">
+        <p>© 2025 Smart Agriculture System | Precision Farming with IoT</p>
+      </footer>
     </div>
   );
 };

@@ -1,9 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .home-container {
     text-align: center;
     padding: 30px;
     background-color: #f4f4f9;
 }
 
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+p {
+    /* font-size: 1.0rem; */
+    font-weight: 400;
+    color: #444;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #222;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+/* Buttons & Links */
+.cta-button {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.feature-card, .step {
+    font-size: 1rem;
+    font-weight: 400;
+}
 /* Hero Section */
 .hero {
     background: linear-gradient(to right, #009688, #4caf50);
@@ -19,7 +59,7 @@
 }
 
 .hero p {
-    font-size: 1.2em;
+    font-size: 1.0em;
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.5;
@@ -44,7 +84,8 @@
 
 /* Slider */
 .slider-container {
-    max-width: 800px;
+    max-width: 1300px;
+    max-height: 1000px;
     margin: 20px auto;
     overflow: hidden;
     border-radius: 10px;
@@ -53,7 +94,7 @@
 
 .slider-container img {
     width: 100%;
-    height: 400px;
+    height: 600px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -62,18 +103,25 @@
 .how-it-works {
     margin-top: 40px;
     padding: 20px;
+    /* gap: 40px; */
 }
 
 .how-it-works h2 {
-    font-size: 2em;
+    font-size: 1.6em;
+    
+}
+.features h2 {
+    /* font-size: 2em; */
     color: #333;
 }
-
 .steps-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 10px;
+    /* padding: 20px; */
+    gap: 1px;
+    
 }
 
 .step {
@@ -96,10 +144,17 @@
     background: #e0f7fa;
     border-radius: 10px;
 }
+.features p{
+    font-size: 1.0em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
 
-.features h2 {
-    font-size: 2em;
-    color: #333;
+
+.features h3 {
+    font-size: 1.5em;
+    color: #009688;
 }
 
 .feature-grid {
@@ -149,5 +204,22 @@
     .step, .feature-card {
         width: 80%;
         margin-bottom: 15px;
+    }
+}
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 1rem;
     }
 }

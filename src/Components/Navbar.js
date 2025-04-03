@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import CONFIG from "./url";
+ 
 import { MdAgriculture } from "react-icons/md";
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);

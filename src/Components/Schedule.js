@@ -15,7 +15,6 @@ const TaskScheduler = () => {
   });
   const [responseMessage, setResponseMessage] = useState("");
 
-  // const url = "https://backend-software-6mz4.onrender.com";
   const url = CONFIG.localHost;
 
   const handleInputChange = (e) => {
@@ -38,96 +37,98 @@ const TaskScheduler = () => {
       const result = await response.json();
       setResponseMessage(result.message || result.error);
     } catch (error) {
-      setResponseMessage("An error occurred while scheduling the task.");
+      setResponseMessage("❌ Error scheduling the task.");
     }
   };
 
   return (
     <div className="scheduler-wrapper">
-    <div className="scheduler-container">
-      <h2>Schedule a Task</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="schedule-type">Schedule Type:</label>
-        <select
-          id="schedule-type"
-          name="schedule_type"
-          value={formData.schedule_type}
-          onChange={(e) => {
-            setScheduleType(e.target.value);
-            handleInputChange(e);
-          }}
-          required
-        >
-          <option value="">Select...</option>
-          <option value="daily">Daily</option>
-          <option value="hourly">Hourly</option>
-          <option value="specific">Specific Date & Time</option>
-          <option value="minute">Every N Minutes</option>
-        </select>
+      <div className="scheduler-container">
+        <h2>📅 Task Scheduler</h2>
+        <p>Automate your tasks by scheduling them at a specified time.</p>
 
-        {/* Daily Time Input */}
-        {scheduleType === "daily" && (
-          <div>
-            <label htmlFor="daily-time-input">Time (HH:MM):</label>
-            <input type="time" id="daily-time-input" name="time" value={formData.time} onChange={handleInputChange} />
-          </div>
-        )}
+        <form onSubmit={handleSubmit}>
+          {/* Schedule Type */}
+          <label>Schedule Type:</label>
+          <select
+            name="schedule_type"
+            value={formData.schedule_type}
+            onChange={(e) => {
+              setScheduleType(e.target.value);
+              handleInputChange(e);
+            }}
+            required
+          >
+            <option value="">Select...</option>
+            <option value="daily">Daily</option>
+            <option value="hourly">Hourly</option>
+            <option value="specific">Specific Date & Time</option>
+            <option value="minute">Every N Minutes</option>
+          </select>
 
-        {/* Specific Date & Time Input */}
-        {scheduleType === "specific" && (
-          <div>
-            <label htmlFor="specific-datetime-input">Date & Time:</label>
-            <input
-              type="datetime-local"
-              id="specific-datetime-input"
-              name="datetime"
-              value={formData.datetime}
-              onChange={handleInputChange}
-            />
-          </div>
-        )}
+          {/* Daily Time Input */}
+          {scheduleType === "daily" && (
+            <div>
+              <label>Time (HH:MM):</label>
+              <input type="time" name="time" value={formData.time} onChange={handleInputChange} />
+            </div>
+          )}
 
-        {/* Minute Interval Input */}
-        {scheduleType === "minute" && (
-          <div>
-            <label htmlFor="minute-interval-input">Interval (minutes):</label>
-            <input
-              type="number"
-              id="minute-interval-input"
-              name="interval"
-              min="1"
-              value={formData.interval}
-              onChange={handleInputChange}
-            />
-          </div>
-        )}
+          {/* Specific Date & Time Input */}
+          {scheduleType === "specific" && (
+            <div>
+              <label>Date & Time:</label>
+              <input
+                type="datetime-local"
+                name="datetime"
+                value={formData.datetime}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
 
-        {/* Delay Before Execution */}
-        <label htmlFor="delay-input">Delay before execution (minutes):</label>
-        <input type="number" id="delay-input" name="delay" min="0" value={formData.delay} onChange={handleInputChange} />
+          {/* Minute Interval Input */}
+          {scheduleType === "minute" && (
+            <div>
+              <label>Interval (minutes):</label>
+              <input
+                type="number"
+                name="interval"
+                
+                min="1"
+                value={formData.interval}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
 
-        {/* Delay Before Reverting to 'Off' */}
-        <label htmlFor="revert-delay-input">Delay before reverting to 'OFF' (minutes):</label>
-        <input
-          type="number"
-          id="revert-delay-input"
-          name="revert_delay"
-          min="1"
-          value={formData.revert_delay}
-          onChange={handleInputChange}
-        />
+          {/* Delay Before Execution */}
+          <label>Delay before execution (minutes):</label>
+          <input type="number" name="delay" min="0" value={formData.delay} onChange={handleInputChange} />
 
-        {/* Action Input */}
-        <label htmlFor="action">Action:</label>
-        <select id="action" name="action" value={formData.action} onChange={handleInputChange} required>
-          <option value="on">ON</option>
-          <option value="off">OFF</option>
-        </select>
+          {/* Delay Before Reverting to 'Off' */}
+          <label>Delay before reverting to 'OFF' (minutes):</label>
+          <input
+            type="number"
+            name="revert_delay"
+            min="1"
+            value={formData.revert_delay}
+            onChange={handleInputChange}
+          />
 
-        <button type="submit">Schedule Task</button>
-      </form>
-      {responseMessage && <p className="response-message">{responseMessage}</p>}
-    </div>
+          {/* Action Selection */}
+          <label>Action:</label>
+          <select name="action" value={formData.action} onChange={handleInputChange} required>
+            <option value="on">ON</option>
+            <option value="off">OFF</option>
+          </select>
+
+          <button type="submit">🚀 Schedule Task</button>
+        </form>
+
+        {/* Response Message */}
+        {responseMessage && <p className="response-message">{responseMessage}</p>}
+      </div>
     </div>
   );
 };

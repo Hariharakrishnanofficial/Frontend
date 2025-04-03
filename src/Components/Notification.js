@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Notification.css"
+import "./Notification.css";
 import CONFIG from "./url";
-// import { Api } from "@mui/icons-material";
 
 const EmailManagement = () => {
   const [emails, setEmails] = useState([]);
@@ -9,10 +8,6 @@ const EmailManagement = () => {
   const [popup, setPopup] = useState({ message: "", type: "" });
 
   const url = CONFIG.API_URL;
-  
-  // console.log("URL:");
-  // console.log(CONFIG.API_URL );
-  // console.log(CONFIG.localHost);
 
   useEffect(() => {
     fetchEmails();
@@ -24,13 +19,13 @@ const EmailManagement = () => {
       const data = await response.json();
       setEmails(data);
     } catch (error) {
-      showPopup("Error fetching emails", "error");
+      showPopup("⚠️ Error fetching emails", "error");
     }
   };
 
   const storeEmail = async () => {
     if (!email) {
-      showPopup("Please enter an email.", "error");
+      showPopup("❌ Please enter an email.", "error");
       return;
     }
 
@@ -38,19 +33,19 @@ const EmailManagement = () => {
       const response = await fetch(`${url}/store-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
       });
 
       const result = await response.json();
       if (response.ok) {
-        showPopup(result.message, "success");
+        showPopup("✅ Email stored successfully!", "success");
         setEmail("");
         fetchEmails();
       } else {
         showPopup(result.error, "error");
       }
     } catch (error) {
-      showPopup("Error storing email", "error");
+      showPopup("❌ Error storing email", "error");
     }
   };
 
@@ -61,18 +56,18 @@ const EmailManagement = () => {
       const response = await fetch(`${url}/delete-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailToDelete })
+        body: JSON.stringify({ email: emailToDelete }),
       });
 
       const result = await response.json();
       if (response.ok) {
-        showPopup(result.message, "success");
+        showPopup("✅ Email deleted successfully!", "success");
         fetchEmails();
       } else {
         showPopup(result.error, "error");
       }
     } catch (error) {
-      showPopup("Error deleting email", "error");
+      showPopup("❌ Error deleting email", "error");
     }
   };
 
@@ -82,32 +77,48 @@ const EmailManagement = () => {
   };
 
   return (
-    <div className="container">
-      <h2>Email Management</h2>
-      <input
-        type="email"
-        placeholder="Enter email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <button onClick={storeEmail}>Store Email</button>
+    <div className="email-container">
+      {/* Header Section */}
+      <header className="email-header">
+        <h1>📧 Email Management</h1>
+        <p>Store and manage email subscriptions with ease.</p>
+      </header>
 
-      <h3>Stored Emails</h3>
-      <ul id="emailList">
+      {/* Email Input Form */}
+      <div className="email-form">
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button onClick={storeEmail} className="store-btn">Store Email</button>
+      </div>
+
+      {/* Stored Emails List */}
+      <div className="email-list-container">
+        <h3>📜 Stored Emails</h3>
         {emails.length === 0 ? (
-          <p>No emails stored.</p>
+          <p className="no-emails">No emails stored.</p>
         ) : (
-          emails.map((item, index) => (
-            <li key={index}>
-              <span>{item.email}</span>
-              <button onClick={() => deleteEmail(item.email)}>Delete</button>
-            </li>
-          ))
+          <ul className="email-list">
+            {emails.map((item, index) => (
+              <li key={index} className="email-item">
+                <span>{item.email}</span>
+                <button className="delete-btn" onClick={() => deleteEmail(item.email)}>Delete</button>
+              </li>
+            ))}
+          </ul>
         )}
-      </ul>
+      </div>
 
       {/* Popup Notification */}
       {popup.message && <div className={`popup ${popup.type}`}>{popup.message}</div>}
+      
+      {/* Footer */}
+      <footer className="email-footer">
+        <p>© 2025 Email Manager | Secure & Efficient</p>
+      </footer>
     </div>
   );
 };

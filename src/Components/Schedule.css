@@ -1,66 +1,108 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
 .scheduler-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height of the viewport */
-    width: 100%; /* Full width */
-}
-
-.scheduler-container {
-    background-color: #fff;
+    min-height: 100vh;
+    background-color: #f8f9fa;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Scheduler Container */
+.scheduler-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Title */
+.scheduler-container h2 {
+    font-size: 2em;
+    color: #009688;
+}
+
+.scheduler-container p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Form */
+.scheduler-container form {
     display: flex;
     flex-direction: column;
 }
 
-
-h2 {
-    text-align: center;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: left;   
-    display: block;     
-}
-
-input,
-select,
-button {
-    margin-top: 5px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    align-items: center;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-.response-message {
-    text-align: center;
-    font-weight: bold;
+.scheduler-container label {
+    font-size: 1.1em;
     margin-top: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Input Fields */
+/* Input Fields */
+.scheduler-container input,
+.scheduler-container select {
+    width: 100%;  /* Full width for better alignment */
+    /* max-width: 400px;  Limit maximum size */
+    padding: 12px;  /* Increased padding for better visibility */
+    font-size: 1em;
+    margin: 10px auto;  /* Center alignment */
+    border: 2px solid #c7dfdc;
+    border-radius: 5px;
+    outline: none;
+    display: block;  /* Makes sure elements are stacked properly */
+}
+
+/* Center inputs */
+.scheduler-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centering all elements */
+}
+
+
+/* Button */
+.scheduler-container button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.2em;
+    background: #ffcc00;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.scheduler-container button:hover {
+    background: #ffdb4d;
+}
+
+/* Response Message */
+.response-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.response-message.success {
+    background: #2ecc71;
+}
+
+.response-message.error {
+    background: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .scheduler-container {
+        width: 90%;
+    }
 }

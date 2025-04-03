@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Control.css";
 import CONFIG from "./url";
+import { FaTemperatureHigh, FaTint, FaCloudRain, FaLightbulb, FaLeaf, FaPowerOff, FaBolt } from "react-icons/fa";
+
 
 const API_URL = CONFIG.API_URL;
 
@@ -69,29 +71,53 @@ const SensorDashboard = () => {
 
     return (
         <div className="dashboard">
-            <h1>Real-Time Sensor Dashboard</h1>
+            <h1 className="dashboard-title">🌿 Real-Time Sensor Monitoring</h1>
             
             {/* Sensor Data */}
             <div className="sensor-container">
-                {Object.entries(sensorData).map(([key, value]) => (
-                    <div className="sensor" key={key}>
-                        <h2>{key.replace(/([A-Z])/g, " $1").trim()}</h2>
-                        <p>{value}</p>
-                    </div>
-                ))}
+                <div className="sensor">
+                    <FaTemperatureHigh className="icon temp" />
+                    <h2>Temperature</h2>
+                    <p>{sensorData.Temperature} °C</p>
+                </div>
+                <div className="sensor">
+                    <FaTint className="icon humidity" />
+                    <h2>Humidity</h2>
+                    <p>{sensorData.Humidity} %</p>
+                </div>
+                <div className="sensor">
+                    <FaCloudRain className="icon rain" />
+                    <h2>Rain Sensor</h2>
+                    <p>{sensorData.RainSensor}</p>
+                </div>
+                <div className="sensor">
+                    <FaLeaf className="icon moisture" />
+                    <h2>Moisture Sensor 1</h2>
+                    <p>{sensorData.MoistureSensor1}</p>
+                </div>
+                <div className="sensor">
+                    <FaLeaf className="icon moisture" />
+                    <h2>Moisture Sensor 2</h2>
+                    <p>{sensorData.MoistureSensor2}</p>
+                </div>
+                <div className="sensor">
+                    <FaLightbulb className="icon light" />
+                    <h2>Light Intensity</h2>
+                    <p>{sensorData.LightIntensity}</p>
+                </div>
             </div>
 
             {/* Water Pump Control */}
             <div className="control">
                 <h2>Water Pump Control</h2>
-                <p>Status: <strong>{pumpStatus}</strong></p>
+                <p>Status: <strong className={`status ${pumpStatus.toLowerCase()}`}>{pumpStatus}</strong></p>
                 
                 {/* Toggle Button */}
                 <button 
                     className={`toggle-button ${pumpStatus === "ON" ? "on" : "off"}`} 
-                    onClick={togglePumpStatus}
-                >
-                    {pumpStatus === "ON" ? "Turn Off" : "Turn On"}
+                    onClick={togglePumpStatus}>
+                    {pumpStatus === "ON" ? <FaPowerOff size={20} color="red" /> : <FaBolt size={20} color="green" />}
+                    {pumpStatus === "ON" ? " Turn Off" : " Turn On"}
                 </button>
             </div>
         </div>

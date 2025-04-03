@@ -4,6 +4,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
+import images1 from  "./image/inspection-vegetable-garden-quality-by-farmers.jpg"
+import images2 from "./image/futuristic-technology-concept.jpg";
+import images3 from "./image/young-woman-controlling-plantation.jpg"
 // import CONFIG from "./url";
 const Home = () => {
     const sliderSettings = {
@@ -32,13 +35,14 @@ const Home = () => {
             <div className="slider-container">
                 <Slider {...sliderSettings}>
                     <div>
-                        <img src="/images/irrigation1.jpg" alt="Smart Irrigation System" />
+                        
+                        <img src={images2} alt="Smart Irrigation System" />
                     </div>
                     <div>
-                        <img src="/images/irrigation2.jpg" alt="Sensor-Based Farming" />
+                        <img src={images1} alt="Sensor-Based Farming" />
                     </div>
                     <div>
-                        <img src="/images/irrigation3.jpg" alt="Water Optimization" />
+                        <img src={images3} alt="Water Optimization" />
                     </div>
                 </Slider>
             </div>
