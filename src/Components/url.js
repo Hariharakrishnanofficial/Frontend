@@ -1,7 +1,7 @@
 
 const CONFIG = 
 {
-    API_URL: "https://backend-software-mctc.onrender.com",
+    API_URL: "https://backend-software-s6n8.onrender.com",
     localHost: "http://127.0.0.1:5000"
 };
 
