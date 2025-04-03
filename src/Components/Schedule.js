@@ -15,7 +15,7 @@ const TaskScheduler = () => {
   });
   const [responseMessage, setResponseMessage] = useState("");
 
-  const url = CONFIG.localHost;
+  const url = CONFIG.API_URL;
  
 
   const handleInputChange = (e) => {
