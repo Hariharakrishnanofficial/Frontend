@@ -23,7 +23,7 @@ const Navbar = () => {
                 <li><Link to="/schedule" onClick={() => setMenuOpen(false)}>Schedule</Link></li>
                 <li><Link to="/SensorDashboard" onClick={() => setMenuOpen(false)}>Sensor Dashboard</Link></li>
                 <li><Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link></li>
-                <li><Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link></li>
+                <li><Link to="/api" onClick={() => setMenuOpen(false)}>Api</Link></li>
             </ul>
         </nav>
     );
