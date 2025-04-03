@@ -9,6 +9,7 @@ import TaskScheduler from "./Components/Schedule";
 import SensorDashboard from "./Components/Control"
 import Navbar from "./Components/Navbar";
 // import CONFIG from "./Components/url";
+import ApiManager from "./Components/api";
 
 function App() 
 {
@@ -22,7 +23,7 @@ function App()
             <Route path="/schedule" element={<TaskScheduler />} />
             <Route path="/SensorDashboard" element={<SensorDashboard />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/Api" element={<ApiManager />} />
         </Routes>
     </Router>
     );
