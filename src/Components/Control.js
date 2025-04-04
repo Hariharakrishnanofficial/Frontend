@@ -3,8 +3,21 @@ import "./Control.css";
 import CONFIG from "./url";
 import { FaTemperatureHigh, FaTint, FaCloudRain, FaLightbulb, FaLeaf, FaPowerOff, FaBolt } from "react-icons/fa";
 
-
 const API_URL = CONFIG.API_URL;
+
+const categorizeMoisture = (value) => {
+    if (value <= 1000) return "Very Wet";
+    if (value <= 2000) return "Moist";
+    if (value <= 3000) return "Dry";
+    return "Very Dry";
+};
+
+const categorizeLight = (value) => {
+    if (value <= 1000) return "Dark";
+    if (value <= 2000) return "Dim";
+    if (value <= 3000) return "Bright";
+    return "Very Bright";
+};
 
 const SensorDashboard = () => {
     const [sensorData, setSensorData] = useState({
@@ -28,9 +41,9 @@ const SensorDashboard = () => {
                     Temperature: latestData.temperature || "--",
                     Humidity: latestData.humidity || "--",
                     RainSensor: latestData.RainSensor === "YES" ? "Yes" : "No",
-                    MoistureSensor1: latestData.moistureSensor1 || "--",
-                    MoistureSensor2: latestData.moistureSensor2 || "--",
-                    LightIntensity: latestData.Light || "--",
+                    MoistureSensor1: categorizeMoisture(latestData.moistureSensor1),
+                    MoistureSensor2: categorizeMoisture(latestData.moistureSensor2),
+                    LightIntensity: categorizeLight(latestData.Light),
                 });
             }
         } catch (error) {
