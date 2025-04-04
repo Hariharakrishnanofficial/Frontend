@@ -19,7 +19,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const SensorDashboard = () => {
   const [sensorData, setSensorData] = useState({ labels: [], datasets: [] });
 
-  const url = CONFIG.API_URL+"/api/sensor-data";
+  const url = CONFIG.API_URL + "/api/sensor-data";
 
   useEffect(() => {
     const fetchSensorData = async () => {
@@ -34,10 +34,22 @@ const SensorDashboard = () => {
             datasets: [
               { label: "🌡 Temperature (°C)", data: data.map((entry) => entry.temperature), borderColor: "#ff5733" },
               { label: "💧 Humidity (%)", data: data.map((entry) => entry.humidity), borderColor: "#3498db" },
-              { label: "🌱 Moisture Sensor 1", data: data.map((entry) => entry.moistureSensor1), borderColor: "#2ecc71" },
-              { label: "🌿 Moisture Sensor 2", data: data.map((entry) => entry.moistureSensor2), borderColor: "#9b59b6" },
+              { 
+                label: "🌱 Moisture Sensor 1", 
+                data: data.map((entry) => mapMoisture(entry.moistureSensor1)), 
+                borderColor: "#2ecc71" 
+              },
+              { 
+                label: "🌿 Moisture Sensor 2", 
+                data: data.map((entry) => mapMoisture(entry.moistureSensor2)), 
+                borderColor: "#9b59b6" 
+              },
+              { 
+                label: "☀️ Light Intensity", 
+                data: data.map((entry) => mapLightIntensity(entry.LightIntensity)), 
+                borderColor: "#f1c40f" 
+              },
               { label: "🌧 Rain Sensor", data: data.map((entry) => (entry.RainSensor === "YES" ? 1 : 0)), borderColor: "#f39c12" },
-              { label: "☀️ Light Intensity", data: data.map((entry) => entry.LightIntensity), borderColor: "#f1c40f" },
             ],
           });
         }
@@ -50,6 +62,20 @@ const SensorDashboard = () => {
     const interval = setInterval(fetchSensorData, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  // Convert Moisture Sensor values (0 - 4095) to readable words
+  const mapMoisture = (value) => {
+    if (value < 1000) return 0; // "Dry"
+    if (value < 2500) return 1; // "Moist"
+    return 2; // "Wet"
+  };
+
+  // Convert Light Intensity values (0 - 4095) to readable words
+  const mapLightIntensity = (value) => {
+    if (value < 1000) return 0; // "Dark"
+    if (value < 2500) return 1; // "Dim"
+    return 2; // "Bright"
+  };
 
   return (
     <div className="dashboard-container">
@@ -74,7 +100,13 @@ const SensorDashboard = () => {
                   plugins: { legend: { display: false } },
                   scales: {
                     x: { display: true, title: { display: true, text: "Time" } },
-                    y: { display: true, title: { display: true, text: dataset.label } },
+                    y: { 
+                      display: true, 
+                      title: { display: true, text: dataset.label },
+                      ticks: dataset.label.includes("Moisture") || dataset.label.includes("Light")
+                        ? { stepSize: 1, callback: (value) => (value === 0 ? "Low" : value === 1 ? "Medium" : "High") }
+                        : {},
+                    },
                   },
                 }}
               />
