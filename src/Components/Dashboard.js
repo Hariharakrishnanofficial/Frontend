@@ -37,7 +37,7 @@ const SensorDashboard = () => {
               { label: "🌱 Moisture Sensor 1", data: data.map((entry) => entry.moistureSensor1), borderColor: "#2ecc71" },
               { label: "🌿 Moisture Sensor 2", data: data.map((entry) => entry.moistureSensor2), borderColor: "#9b59b6" },
               { label: "🌧 Rain Sensor", data: data.map((entry) => (entry.RainSensor === "YES" ? 1 : 0)), borderColor: "#f39c12" },
-              { label: "☀️ Light Intensity", data: data.map((entry) => entry.LightIntensity), borderColor: "#f1c40f" },
+              { label: "☀️ Light Intensity", data: data.map((entry) => entry.Light), borderColor: "#f1c40f" },
             ],
           });
         }
