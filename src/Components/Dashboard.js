@@ -19,7 +19,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const SensorDashboard = () => {
   const [sensorData, setSensorData] = useState({ labels: [], datasets: [] });
 
-  const url = CONFIG.API_URL+"/api/sensor-data";
+  const url = CONFIG.API_URL + "/api/sensor-data";
 
   useEffect(() => {
     const fetchSensorData = async () => {
@@ -90,3 +90,6 @@ const SensorDashboard = () => {
     </div>
   );
 };
+
+// Export the component
+export default SensorDashboard;
