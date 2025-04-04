@@ -18,11 +18,8 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const SensorDashboard = () => {
   const [sensorData, setSensorData] = useState({ labels: [], datasets: [] });
-  const [moisture1Text, setMoisture1Text] = useState([]);
-  const [moisture2Text, setMoisture2Text] = useState([]);
-  const [lightText, setLightText] = useState([]);
 
-  const url = CONFIG.API_URL + "/api/sensor-data";
+  const url = CONFIG.API_URL+"/api/sensor-data";
 
   useEffect(() => {
     const fetchSensorData = async () => {
@@ -32,20 +29,15 @@ const SensorDashboard = () => {
         if (data.length > 0) {
           const timestamps = data.map((entry) => new Date(entry.timestamp).toLocaleTimeString());
 
-          // Map moisture and light sensor values to words
-          setMoisture1Text(data.map((entry) => mapMoisture(entry.moistureSensor1)));
-          setMoisture2Text(data.map((entry) => mapMoisture(entry.moistureSensor2)));
-          setLightText(data.map((entry) => mapLightIntensity(entry.LightIntensity)));
-
           setSensorData({
             labels: timestamps,
             datasets: [
               { label: "🌡 Temperature (°C)", data: data.map((entry) => entry.temperature), borderColor: "#ff5733" },
               { label: "💧 Humidity (%)", data: data.map((entry) => entry.humidity), borderColor: "#3498db" },
-              { label: "🌱 Moisture Sensor 1", data: data.map((entry) => mapMoistureValue(entry.moistureSensor1)), borderColor: "#2ecc71" },
-              { label: "🌿 Moisture Sensor 2", data: data.map((entry) => mapMoistureValue(entry.moistureSensor2)), borderColor: "#9b59b6" },
-              { label: "☀️ Light Intensity", data: data.map((entry) => mapLightValue(entry.LightIntensity)), borderColor: "#f1c40f" },
+              { label: "🌱 Moisture Sensor 1", data: data.map((entry) => entry.moistureSensor1), borderColor: "#2ecc71" },
+              { label: "🌿 Moisture Sensor 2", data: data.map((entry) => entry.moistureSensor2), borderColor: "#9b59b6" },
               { label: "🌧 Rain Sensor", data: data.map((entry) => (entry.RainSensor === "YES" ? 1 : 0)), borderColor: "#f39c12" },
+              { label: "☀️ Light Intensity", data: data.map((entry) => entry.LightIntensity), borderColor: "#f1c40f" },
             ],
           });
         }
@@ -58,34 +50,6 @@ const SensorDashboard = () => {
     const interval = setInterval(fetchSensorData, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  // Function to map Moisture Sensor values (0 - 4095) to words
-  const mapMoisture = (value) => {
-    if (value < 1000) return "Dry";
-    if (value < 2500) return "Moist";
-    return "Wet";
-  };
-
-  // Convert Moisture values to numeric for plotting
-  const mapMoistureValue = (value) => {
-    if (value < 1000) return 0;
-    if (value < 2500) return 1;
-    return 2;
-  };
-
-  // Function to map Light Intensity values (0 - 4095) to words
-  const mapLightIntensity = (value) => {
-    if (value < 1000) return "Dark";
-    if (value < 2500) return "Dim";
-    return "Bright";
-  };
-
-  // Convert Light values to numeric for plotting
-  const mapLightValue = (value) => {
-    if (value < 1000) return 0;
-    if (value < 2500) return 1;
-    return 2;
-  };
 
   return (
     <div className="dashboard-container">
@@ -110,27 +74,13 @@ const SensorDashboard = () => {
                   plugins: { legend: { display: false } },
                   scales: {
                     x: { display: true, title: { display: true, text: "Time" } },
-                    y: { 
-                      display: true, 
-                      title: { display: true, text: dataset.label },
-                      ticks: dataset.label.includes("Moisture") || dataset.label.includes("Light")
-                        ? { stepSize: 1, callback: (value) => (value === 0 ? "Dry/Dark" : value === 1 ? "Moist/Dim" : "Wet/Bright") }
-                        : {},
-                    },
+                    y: { display: true, title: { display: true, text: dataset.label } },
                   },
                 }}
               />
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Sensor Value Display Section */}
-      <div className="sensor-text-display">
-        <h2>📊 Sensor Readings</h2>
-        <p><strong>Moisture Sensor 1:</strong> {moisture1Text.length > 0 ? moisture1Text[moisture1Text.length - 1] : "Loading..."}</p>
-        <p><strong>Moisture Sensor 2:</strong> {moisture2Text.length > 0 ? moisture2Text[moisture2Text.length - 1] : "Loading..."}</p>
-        <p><strong>Light Intensity:</strong> {lightText.length > 0 ? lightText[lightText.length - 1] : "Loading..."}</p>
       </div>
 
       {/* Footer */}
@@ -140,5 +90,3 @@ const SensorDashboard = () => {
     </div>
   );
 };
-
-export default SensorDashboard;
